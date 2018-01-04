@@ -1,0 +1,6 @@
+python manage.py runserver - запустить сервер
+python manage.py makemigrations landing - создать миграцию landing с таблицами, указанными в модели
+python manage.py migrate - применить миграцию
+python manage.py createsuperuser - создать первого пользователя-администратора
+
+git rm -r --cached .idea -  если git записал .idea, и не нужно добавлять в удаленный репозиторий
