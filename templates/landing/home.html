@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="section-top">
+        <img src="{% static 'img/bg-mobile-fallback.jpg' %}" alt="" class="img-responsive">
+    </div>
+    <div class="section">
+        <div class="container">
+            <div class="row">
+                {% for product_image in products_images %}
+                    <div class="col-lg-3">
+                        <div class="product-item">
+                            <div>
+                                <img src="{{ product_image.image.url }}" alt="" class="img-responsive">
+                            </div>
+                            {# получаем данные через связанную модель #}
+                            <h4>{{ product_image.product.name }}</h4>
+                            <p>
+                                {# выводим 100 символов #}
+                                {{ product_image.product.description|truncatechars_html:100 }}
+                            </p>
+                            <div>
+                                {{ product_image.product.price }} руб.
+                            </div>
+                            <div class="add-to-cart-btn">
+                                <button class="btn btn-success">
+                                    Добавить в корзину
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
