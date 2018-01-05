@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import SubscriberForm
 from products.models import *
+from categories.models import *
 
 def landing(request):
     # отрисовываем html шаблон
@@ -22,4 +23,7 @@ def landing(request):
 def home(request):
     # выводим только активные товары
     products_images = ProductImage.objects.filter(is_active=True, is_main=True)
+    products = Product.objects.filter(is_active=True)
+    categories = Category.objects.filter(is_active=True)
     return render(request, 'landing/home.html', locals())
+
