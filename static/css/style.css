@@ -5,8 +5,30 @@ html, body{
     background-color: #edeef0;
 }
 
+.navbar {
+    margin-bottom: 0;
+}
+
+.discount-container {
+    position: absolute;
+    top: 30%;
+    background: #55e073;
+    width: 30%;
+    color: white;
+    font-weight: 700;
+    padding: 5px;
+}
+
 .section-top {
     margin: 20px;
+}
+
+.footer {
+    height: 200px;
+    background-color: white;
+    margin-top: 30px;
+    clear: both;
+    position: relative;
 }
 
 .product-item {
@@ -16,12 +38,37 @@ html, body{
     position: relative;
     margin-top: 5px;
     border-radius: 3px;
-    padding: 5px;
+    padding: 10px 0 10px 0;
     text-align: center;
 }
+
+.product-item img {
+    padding: 0 5px 0 5px;
+}
+
+.product-item h4, p {
+   margin: 5px 5px 0 5px;
+}
+
 
 .add-to-cart-btn {
     position: absolute;
     bottom: 15px;
     left: 50px;
+}
+
+.section-delivery {
+    height: 300px;
+    background-color: darkseagreen;
+    text-align: center;
+    color: white;
+}
+
+.product-description {
+    padding: 10px;
+}
+
+.product-image-item {
+    padding: 5px;
+    margin-bottom: 8px;
 }

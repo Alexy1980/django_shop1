@@ -22,8 +22,12 @@ def landing(request):
 
 def home(request):
     # выводим только активные товары
-    products_images = ProductImage.objects.filter(is_active=True, is_main=True)
+    products_images = ProductImage.objects.filter(is_active=True, is_main=True, product__is_active=True)
     products = Product.objects.filter(is_active=True)
     categories = Category.objects.filter(is_active=True)
+    # выбираем по типу товара
+    products_images_phones = products_images.filter(product__type__id=2)
+    products_images_laptops = products_images.filter(product__type__id=1)
+    # products_images_new = products_images.filter(product__type__id=3)
     return render(request, 'landing/home.html', locals())
 

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    {# получаем все картинки, у которых есть ссылка на текущий продукт #}
+                    {% for image_item in product.productimage_set.all %}
+                        <div class="product-image-item">
+                            <img src="../../{{ image_item.image.url }}" alt="" class="img-responsive">
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-lg-6">
+                    <h1 class="text-center">
+                        {{ product.name }}
+                    </h1>
+                    <div class="">
+                        <p>
+                            Цена: {{ product.price }}
+                        </p>
+                    </div>
+                    <ul class="nav nav-tabs">
+                      <li class="active"><a data-toggle="tab" href="#description">Описание</a></li>
+                      <li><a data-toggle="tab" href="#delivery">Доставка товара</a></li>
+                      <li><a data-toggle="tab" href="#contacts">Контакты</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                      <div id="description" class="tab-pane fade in active">
+                        <h3>Описание товара</h3>
+                        <p>{{ product.description }}</p>
+                      </div>
+                      <div id="delivery" class="tab-pane fade">
+                        <h3>Доставка товара</h3>
+                        <p>Описание доставки данного товара</p>
+                      </div>
+                      <div id="contacts" class="tab-pane fade">
+                        <h3>Контакты</h3>
+                        <p>Наши контакты</p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
