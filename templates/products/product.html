@@ -42,6 +42,15 @@
                       </div>
                     </div>
                 </div>
+                <div>
+                    <form action="" id="form_buying_product" class="form-inline">
+                        <input type="number" class="form-control" name="number" id="number">
+                        <button type="submit" class="btn btn-success btn-buy" id="submit_btn"
+                                data-product_id="{{ product.id }}"
+                                data-product_name="{{ product.name }}"
+                                data-product_price="{{ product.price }}">Купить</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
