@@ -126,7 +126,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # для использования {% static %}
 
-# данная настройка сохранит все картинки в media/static/img
+# данная настройка будет сохранять все картинки в static/media/static/img
 # MEDIA_ROOT = os.path.join(BASE_DIR, "static", "media")
 
 STATICFILES_DIRS = [

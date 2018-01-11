@@ -9,6 +9,34 @@ $(document).ready(function(){
         var product_id = submit_button.data('product_id');
         var product_name = submit_button.data('product_name');
         var product_price = submit_button.data('product_price');
+
+        // ajax
+        var data = {};
+        data.product_id = product_id;
+        data.nmb = nmb;
+        data.product_name = product_name;
+        var csrf_token = $('#form_buying_product [name="csrfmiddlewaretoken"]').val();
+        data["csrfmiddlewaretoken"] = csrf_token;
+        var url = form.attr('action');
+        // console.log(data);
+        $.ajax({
+             url: url,
+             type: 'POST',
+             data: data,
+             cache: true,
+             success: function (data) {
+                 console.log("OK");
+                 console.log(data.products_total_nmb);
+                 if(data.products_total_nmb){
+                     // вписываем в span id = "busket_total_nmb" значение data.products_total_nmb
+                     $('#basket_total_nmb').text("(" + data.products_total_nmb + ")");
+                 }
+             },
+             error: function(){
+                 console.log("error")
+             }
+         });
+
         $('.basket-items ul').append('<li>' + product_name + ' ' + nmb + ' шт. ' + 'по ' + product_price + ' руб. ' + '<a class="delete-item" href="">x</a>' + '</li>');
     });
 
