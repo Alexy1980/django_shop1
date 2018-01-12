@@ -23,9 +23,9 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Категории <span class="caret"></span></a>
 
                 <ul class="dropdown-menu">
-                {% for category in categories %}
-                    {% if category.name %}
-                        <li><a href="#">{{ category.name }}</a></li>
+                {% for category_name in categories_names %}
+                    {% if category_name %}
+                        <li><a href="#">{{ category_name.name }}</a></li>
                     {% endif %}
                 {% endfor %}
                 {% comment %}<li role="separator" class="divider"></li>
@@ -39,11 +39,20 @@
           <ul class="nav navbar-nav navbar-right">
             <li>
                 <div class="basket-container">
-                    <a href="#">Корзина <span id="basket_total_nmb"></span></a>
+                    {#  используем context_processor  #}
+                    <a href="#">Корзина <span id="basket_total_nmb">
+                        {% if products_total_nmb %}
+                            ({{ products_total_nmb }})
+                        {% else %}
+                            (0)
+                        {% endif %}
+                    </span></a>
                     {% comment %}Модальное окно корзины{% endcomment %}
                     <div class="basket-items hidden">
                         <ul class="">
-
+                            {% for product_in_basket in products_in_basket %}
+                                <li>{{ product_in_basket.product.name }} {{ product_in_basket.nmb }} шт. по {{ product_in_basket.price_per_item }} RUB</li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>

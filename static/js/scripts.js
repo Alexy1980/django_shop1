@@ -30,6 +30,12 @@ $(document).ready(function(){
                  if(data.products_total_nmb){
                      // вписываем в span id = "busket_total_nmb" значение data.products_total_nmb
                      $('#basket_total_nmb').text("(" + data.products_total_nmb + ")");
+                     console.log(data.products);
+                     $('.basket-items ul').html("");
+                     $.each(data.products, function(k, v){
+                         // отрисовываем полученные от сервера значения
+                         $('.basket-items ul').append('<li>' + v.name + ' ' + v.nmb + ' шт. ' + 'по ' + v.price_per_item + ' руб. ' + /*'<a class="delete-item" href="">x</a>' +*/ '</li>');
+                     });
                  }
              },
              error: function(){
@@ -37,7 +43,6 @@ $(document).ready(function(){
              }
          });
 
-        $('.basket-items ul').append('<li>' + product_name + ' ' + nmb + ' шт. ' + 'по ' + product_price + ' руб. ' + '<a class="delete-item" href="">x</a>' + '</li>');
     });
 
     function showBasket(){
