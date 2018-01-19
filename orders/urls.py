@@ -4,5 +4,7 @@ from django.contrib import admin
 from orders import views
 
 urlpatterns = [
-    url(r'^basket_adding/$', views.basket_adding, name='basket_adding')
+    url(r'^basket_adding/$', views.basket_adding, name='basket_adding'),
+    # страница чекаута
+    url(r'^checkout/$', views.checkout, name='checkout')
 ]

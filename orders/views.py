@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from .models import ProductInBasket
+from django.shortcuts import render
 
 # возвр. ответ сервера
 def basket_adding(request):
@@ -35,3 +36,9 @@ def basket_adding(request):
 
     # print(products_total_nmb)
     return JsonResponse(return_dict)
+
+def checkout(request):
+    # берем session_key из request
+    session_key = request.session.session_key
+    products_in_basket = ProductInBasket.objects.filter(session_key=session_key, is_active=True)
+    return render(request, 'orders/checkout.html', locals())
