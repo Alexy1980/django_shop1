@@ -3,4 +3,4 @@ python manage.py makemigrations landing - создать миграцию landin
 python manage.py migrate - применить миграцию
 python manage.py createsuperuser - создать первого пользователя-администратора
 
-git rm -r --cached .idea -  если git записал .idea, и не нужно добавлять в удаленный репозиторий
+git rm -r --cached .idea -  если git записал .idea

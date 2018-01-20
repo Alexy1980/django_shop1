@@ -6,7 +6,11 @@ $(document).ready(function(){
         data.product_id = product_id;
         data.nmb = nmb;
          var csrf_token = $('#form_buying_product [name="csrfmiddlewaretoken"]').val();
-         data["csrfmiddlewaretoken"] = csrf_token;
+        if(csrf_token){
+           data["csrfmiddlewaretoken"] = csrf_token;
+        } else {
+           data["csrfmiddlewaretoken"] = $('#token [name="csrfmiddlewaretoken"]').val();
+        }
         // проверяем, передано ли is_delete
         if (is_delete){
             data["is_delete"] = true;
@@ -25,7 +29,7 @@ $(document).ready(function(){
                  console.log(data.products_total_nmb);
                  if (data.products_total_nmb || data.products_total_nmb == 0){
                     $('#basket_total_nmb').text("("+data.products_total_nmb+")");
-                     console.log(data.products);
+                     // console.log(data.products);
                      $('.basket-items ul').html("");
                      $.each(data.products, function(k, v){
                         $('.basket-items ul').append('<li>'+ v.name+', ' + v.nmb + 'шт. ' + 'по ' + v.price_per_item + 'RUB  ' +
@@ -91,10 +95,23 @@ $(document).ready(function(){
     function calculatingBasketAmount(){
         var total_order_amount = 0;
         $('.total_product_in_basket_amount').each(function(){
-            total_order_amount += parseInt($(this).text(), 10);
+            total_order_amount += parseFloat($(this).text());
         });
-        console.log(total_order_amount);
+        // console.log(total_order_amount);
+        // вписываем сумму заказа в span
+        $('#total_order_amount').text(total_order_amount.toFixed(2));
     }
+    // отслеживаем изменение поля количества
+    $(document).on('change', '.product_in_basket_nmb', function(){
+        var current_nmb = $(this).val();
+        // ищем ближайшую строку к полю input
+        var current_tr = $(this).closest('tr');
+        var current_price = parseFloat(current_tr.find('.product_price').text()).toFixed(2);
+        var total_amount = parseFloat(current_nmb*current_price).toFixed(2);
+        current_tr.find('.total_product_in_basket_amount').text(total_amount);
+        console.log(total_amount);
+        calculatingBasketAmount();
+    });
 
     calculatingBasketAmount();
 });
