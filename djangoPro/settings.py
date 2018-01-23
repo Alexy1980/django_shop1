@@ -70,6 +70,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'orders.context_processor.getting_basket_info',
                 'categories.context_processor.get_categories',
+                'categories.context_processor.get_current_path',
             ],
         },
     },

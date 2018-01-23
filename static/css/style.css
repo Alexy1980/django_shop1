@@ -99,3 +99,6 @@ html, body{
     background-color: #55e093;
 }
 
+.form-error {
+    color: red;
+}

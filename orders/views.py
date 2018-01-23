@@ -1,6 +1,8 @@
 from django.http import JsonResponse
 from .models import ProductInBasket
 from django.shortcuts import render
+from .forms import CheckoutContactForm
+from django.contrib.auth.models import User
 
 # возвр. ответ сервера
 def basket_adding(request):
@@ -41,4 +43,19 @@ def checkout(request):
     # берем session_key из request
     session_key = request.session.session_key
     products_in_basket = ProductInBasket.objects.filter(session_key=session_key, is_active=True)
+    # форма принимает request.POST или ничего
+    form = CheckoutContactForm(request.POST or None)
+    if request.POST:
+        print(request.POST)
+        if form.is_valid():
+            print("yes")
+            data = request.POST
+            # data.get('name') то же, что и data['name'], только проверяет, передано ли значение name. Если нет, то вернется none
+            # именем пользователя в б/д будут введенный им номер телефона
+            name = data.get('name')
+            phone = data.get('phone')
+            # выбираем уже созданного пользователя
+            user, created = User.objects.get_or_create(username=phone, defaults={"first_name": name})
+        else:
+            print("no")
     return render(request, 'orders/checkout.html', locals())

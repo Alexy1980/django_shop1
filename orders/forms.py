@@ -1,11 +1,8 @@
 # создадим форму, данные из которой будут передаваться в модель Subscribes
 from django import forms
-from .models import *
 
-# class SubscriberForm(forms.ModelForm):
-#     class Meta:
-#         model = Subscriber
-#         # необходимо включить
-#         fields = ["email", "name"]
-#         # необходимо исключить
-#         # exclude = ["email", "name"]
+
+# данная форма не привязана к модели
+class CheckoutContactForm(forms.Form):
+    name = forms.CharField(required=True)
+    phone = forms.CharField(required=True)

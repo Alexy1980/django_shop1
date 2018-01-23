@@ -1,6 +1,7 @@
 from django.db import models
 from products.models import Product
 from django.db.models.signals import post_save
+from django.contrib.auth.models import User
 
 class Status(models.Model):
     name = models.CharField(max_length=24, blank=True, null=True, default=None)
@@ -20,12 +21,13 @@ class Status(models.Model):
 
 # название модели соответствует названию таблицы в базе данных
 class Order(models.Model):
+    user = models.ForeignKey(User, blank=True, null=True, default=None, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     customer_email = models.EmailField(blank=True, null=True, default=None)
     customer_name = models.CharField(max_length=128, blank=True, null=True, default=None)
     customer_phone = models.CharField(max_length=48, blank=True, null=True, default=None)
     customer_address = models.CharField(max_length=128, blank=True, null=True, default=None)
-    status = models.ForeignKey(Status, on_delete=models.DO_NOTHING, default=1)
+    status = models.ForeignKey(Status, default=1, on_delete=models.CASCADE)
     comments = models.TextField(blank=True, null=True, default=None)
     # изменяется при create
     created = models.DateTimeField(auto_now_add=True, auto_now=False)

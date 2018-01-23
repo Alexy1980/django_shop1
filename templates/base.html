@@ -25,7 +25,33 @@
             {% endblock content %}
         </div>
     </div>
-
+    {% if current_path == '/' or current_path == '/checkout/' %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8"></div>
+                    <form action="{% url 'basket_adding' %}" id="form_buying_product" class="form-inline" hidden>{% csrf_token %}
+                    <input type="number" class="form-control" name="number" id="number">
+                    <button type="submit" class="btn btn-success btn-buy" id="submit_btn"
+                            data-product_id="{{ product.id }}"
+                            data-product_name="{{ product.name }}"
+                            data-product_price="{{ product.price }}">Купить</button>
+                    </form>
+                </div>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8"></div>
+                    <form action="{% url 'basket_adding' %}" id="form_buying_product" class="form-inline">{% csrf_token %}
+                    <input type="number" class="form-control" name="number" id="number">
+                    <button type="submit" class="btn btn-success btn-buy" id="submit_btn"
+                            data-product_id="{{ product.id }}"
+                            data-product_name="{{ product.name }}"
+                            data-product_price="{{ product.price }}">Купить</button>
+                    </form>
+                </div>
+        </div>
+    {% endif %}
      {% include 'footer.html' %}
 
 

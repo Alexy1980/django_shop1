@@ -6,11 +6,7 @@ $(document).ready(function(){
         data.product_id = product_id;
         data.nmb = nmb;
          var csrf_token = $('#form_buying_product [name="csrfmiddlewaretoken"]').val();
-        if(csrf_token){
-           data["csrfmiddlewaretoken"] = csrf_token;
-        } else {
-           data["csrfmiddlewaretoken"] = $('#token [name="csrfmiddlewaretoken"]').val();
-        }
+         data["csrfmiddlewaretoken"] = csrf_token;
         // проверяем, передано ли is_delete
         if (is_delete){
             data["is_delete"] = true;
