@@ -71,7 +71,7 @@ class ProductInOrder(models.Model):
         price_per_item = self.product.price
         self.price_per_item = price_per_item
         # переопределяем поле total_price
-        self.total_price = self.nmb * self.price_per_item
+        self.total_price = int(self.nmb) * self.price_per_item
 
         super(ProductInOrder, self).save(*args, **kwargs)
 

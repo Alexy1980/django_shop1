@@ -1,5 +1,7 @@
 from django.http import JsonResponse
 from .models import ProductInBasket
+from .models import ProductInOrder
+from .models import Order
 from django.shortcuts import render
 from .forms import CheckoutContactForm
 from django.contrib.auth.models import User
@@ -42,7 +44,8 @@ def basket_adding(request):
 def checkout(request):
     # берем session_key из request
     session_key = request.session.session_key
-    products_in_basket = ProductInBasket.objects.filter(session_key=session_key, is_active=True)
+    # exclude(order__isnull=False) исключает значения, которые уже есть в заказе
+    products_in_basket = ProductInBasket.objects.filter(session_key=session_key, is_active=True).exclude(order__isnull=False)
     # форма принимает request.POST или ничего
     form = CheckoutContactForm(request.POST or None)
     if request.POST:
@@ -52,10 +55,23 @@ def checkout(request):
             data = request.POST
             # data.get('name') то же, что и data['name'], только проверяет, передано ли значение name. Если нет, то вернется none
             # именем пользователя в б/д будут введенный им номер телефона
-            name = data.get('name')
+            name = data.get('name', 'John Doe')
             phone = data.get('phone')
             # выбираем уже созданного пользователя
             user, created = User.objects.get_or_create(username=phone, defaults={"first_name": name})
+            # делаем заказ
+            order = Order.objects.create(user=user, customer_name=name, customer_phone=phone, status_id=1)
+            # проходим циклом по словарю с пом. функции items()
+            for name, value in data.items():
+                if name.startswith("product_in_basket_"):
+                    product_in_basket_id = name.split("product_in_basket_")[1]
+                    product_in_basket = ProductInBasket.objects.get(id=product_in_basket_id)
+                    product_in_basket.nmb = value
+                    product_in_basket.order = order
+                    product_in_basket.save(force_update=True)
+                    ProductInOrder.objects.create(product=product_in_basket.product, nmb=product_in_basket.nmb, price_per_item=product_in_basket.price_per_item, total_price=product_in_basket.total_price, order=order)
+
+
         else:
             print("no")
     return render(request, 'orders/checkout.html', locals())
