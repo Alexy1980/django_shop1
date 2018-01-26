@@ -108,7 +108,7 @@ class ProductInBasket(models.Model):
         verbose_name = 'Товар в корзине'
         verbose_name_plural = 'Товары в корзине'
 
-    # переопределяем метод save() модели ProductInOrder
+    # переопределяем метод save() модели ProductInBasket
     def save(self, *args, **kwargs):
         price_per_item = self.product.price
         self.price_per_item = price_per_item

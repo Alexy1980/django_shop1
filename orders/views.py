@@ -70,8 +70,10 @@ def checkout(request):
                     product_in_basket.order = order
                     product_in_basket.save(force_update=True)
                     ProductInOrder.objects.create(product=product_in_basket.product, nmb=product_in_basket.nmb, price_per_item=product_in_basket.price_per_item, total_price=product_in_basket.total_price, order=order)
-
-
+                    # после оформления заказа очищаем корзину заказавшего пользователя
+                    success_checkout = ""
+                    if(ProductInBasket.objects.get(session_key=session_key).delete()):
+                        success_checkout = "Ваш заказ успешно оформлен!"
         else:
             print("no")
     return render(request, 'orders/checkout.html', locals())
