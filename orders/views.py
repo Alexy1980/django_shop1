@@ -5,6 +5,8 @@ from .models import Order
 from django.shortcuts import render
 from .forms import CheckoutContactForm
 from django.contrib.auth.models import User
+# from django.conf import settings
+# from django.core.mail import send_mail
 
 # возвр. ответ сервера
 def basket_adding(request):
@@ -57,10 +59,11 @@ def checkout(request):
             # именем пользователя в б/д будут введенный им номер телефона
             name = data.get('name', 'John Doe')
             phone = data.get('phone')
+            email = data.get('email')
             # выбираем уже созданного пользователя
             user, created = User.objects.get_or_create(username=phone, defaults={"first_name": name})
             # делаем заказ
-            order = Order.objects.create(user=user, customer_name=name, customer_phone=phone, status_id=1)
+            order = Order.objects.create(user=user, customer_name=name, customer_phone=phone, customer_email=email, status_id=1)
             # проходим циклом по словарю с пом. функции items()
             for name, value in data.items():
                 if name.startswith("product_in_basket_"):
@@ -72,8 +75,11 @@ def checkout(request):
                     ProductInOrder.objects.create(product=product_in_basket.product, nmb=product_in_basket.nmb, price_per_item=product_in_basket.price_per_item, total_price=product_in_basket.total_price, order=order)
                     # после оформления заказа очищаем корзину заказавшего пользователя
                     success_checkout = ""
+                    mail = "Ваш заказ № {} успешно оформлен! Вы можете оплатить данный заказ, переведя деньги на счет ...".format(product_in_basket_id)
                     if(ProductInBasket.objects.get(session_key=session_key).delete()):
                         success_checkout = "Ваш заказ успешно оформлен!"
+                        # send_mail("По заказу № {}".format(product_in_basket_id), mail, settings.EMAIL_HOST_USER, [email], fail_silently=False)
+
         else:
             print("no")
     return render(request, 'orders/checkout.html', locals())
