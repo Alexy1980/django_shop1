@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="section section2 phones-container">
+        <div class="container">
+            <div class="row">
+                {% for product in products %}
+                    {% if product.category_id == category.id %}
+                        {{ product.name }}<br>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock content %}
