@@ -25,6 +25,7 @@
             {% endblock content %}
         </div>
     </div>
+    {#  отображение кнопки "Купить"  #}
     {% if current_path == '/' or current_path == '/checkout/' or '/category/'|add:category.id|add:'/' %}
         <div class="container">
             <div class="row">
