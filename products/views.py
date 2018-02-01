@@ -3,7 +3,7 @@ from products.models import *
 from categories.models import *
 
 def product(request, product_id):
-    product = Product.objects.get(id=product_id)
+    product = Product.objects.filter(is_active=True).get(id=product_id)
     # используем сессионный ключ
     session_key = request.session.session_key
     # если пользователь не авторизован, django последних версий не создает ключ сессий, поэтому создаем его вручную (когда пользователь заходит в Product, у него создается ключ сессии). Ключ сессии уникален для каждого пользователя

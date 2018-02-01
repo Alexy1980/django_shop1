@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block content %}
-    <div class="section section2 phones-container">
+    <div class="section">
         <div class="container">
             <div class="row">
-                {% for product in products %}
-                    {% if product.category_id == category.id %}
-                        {{ product.name }}<br>
+                {% for product_image in products_images %}
+                    {% if product_image.product.category_id == category.id %}
+                        {% include 'landing/category_item.html' %}
                     {% endif %}
                 {% endfor %}
             </div>
