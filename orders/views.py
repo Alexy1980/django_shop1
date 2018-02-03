@@ -74,7 +74,6 @@ def checkout(request):
                     product_in_basket.save(force_update=True)
                     ProductInOrder.objects.create(product=product_in_basket.product, nmb=product_in_basket.nmb, price_per_item=product_in_basket.price_per_item, total_price=product_in_basket.total_price, order=order)
                     # после оформления заказа очищаем корзину заказавшего пользователя
-                    success_checkout = ""
                     mail = "Ваш заказ № {} успешно оформлен! Вы можете оплатить данный заказ, переведя деньги на счет ...".format(product_in_basket_id)
                     if(ProductInBasket.objects.get(session_key=session_key).delete()):
                         success_checkout = "Ваш заказ успешно оформлен!"

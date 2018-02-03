@@ -52,7 +52,7 @@
                         <ul class="">
                             {% for product_in_basket in products_in_basket %}
                                 <li>
-                                    {{ product_in_basket.product.name }} {{ product_in_basket.nmb }} шт. по {{ product_in_basket.price_per_item }} RUB<a class="delete-item" href="" data-product_id="{{ product_in_basket.id }}"> x</a>
+                                    <a href="{% url 'checkout' %}">{{ product_in_basket.product.name }} {{ product_in_basket.nmb }} шт. по {{ product_in_basket.price_per_item }} RUB</a><a class="delete-item" href="" data-product_id="{{ product_in_basket.id }}"> x</a>
                                 </li>
                             {% endfor %}
                         </ul>

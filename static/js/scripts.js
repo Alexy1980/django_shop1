@@ -28,8 +28,7 @@ $(document).ready(function(){
                      // console.log(data.products);
                      $('.basket-items ul').html("");
                      $.each(data.products, function(k, v){
-                        $('.basket-items ul').append('<li>'+ v.name+', ' + v.nmb + 'шт. ' + 'по ' + v.price_per_item + 'RUB  ' +
-                            '<a class="delete-item" href="" data-product_id="'+v.id+'">x</a>'+
+                        $('.basket-items ul').append('<li>' + '<a href="' + '/checkout/' + '">' + v.name+', '  + v.nmb + 'шт. ' + 'по ' + v.price_per_item + 'RUB  ' + '</a>' + '<a class="delete-item" href="" data-product_id="'+v.id+'">x</a>'+
                             '</li>');
                      });
                  }
