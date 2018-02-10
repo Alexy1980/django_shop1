@@ -28,6 +28,7 @@ def home(request):
     # выбираем по типу товара
     products_images_phones = products_images.filter(product__type__id=2)
     products_images_laptops = products_images.filter(product__type__id=1)
-    # products_images_new = products_images.filter(product__type__id=3)
+    products_images_new = ProductImage.objects.filter(is_active=True, is_main=True, product__is_active=True, product__is_new=True)
+
     return render(request, 'landing/home.html', locals())
 

@@ -9,7 +9,7 @@
         <div class="container">
             <div class="row">
                 <h2 class="text-center">Новые поступления</h2>
-                {% for product_image in products_images %}
+                {% for product_image in products_images_new %}
                     {% include 'landing/product_item.html' %}
                 {% endfor %}
             </div>
@@ -17,7 +17,7 @@
     </div>
     <div class="section section-delivery">
         <div>
-            <h3>Бесплатная доставка</h3>
+            <img src="{% static 'img/banner-S8-2.jpg' %}" alt="" class="img-responsive">
         </div>
     </div>
     <div class="section section2 phones-container">

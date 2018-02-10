@@ -22,6 +22,7 @@ class Product(models.Model):
     short_description = models.TextField(blank=True, null=True, default=None)
     description = models.TextField(blank=True, null=True, default=None)
     is_active = models.BooleanField(default=True)
+    is_new = models.BooleanField(default=True)
     # изменяется при create
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     # изменяется при update
